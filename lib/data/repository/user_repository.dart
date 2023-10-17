@@ -25,6 +25,7 @@ class UserRepository {
     try {
       // 토큰은 response의 헤더에 있음
       final response = await dio.post("/login", data: requestDTO.toJson());
+      print(response.data);
       ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
       // 유저에 값을 저장함
       responseDTO.data = User.fromJson(responseDTO.data);
