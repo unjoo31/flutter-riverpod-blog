@@ -36,8 +36,8 @@ class PostListViewModel extends StateNotifier<PostListModel?> {
         await PostRepository().fetchPost(sessionStore.jwt!, dto);
 
     if (responseDTO.code == 1) {
-      // 1. dynamic(Post) -> 다운캐스팅
-      Post newPost = responseDTO.data as Post;
+      // 1. 작성된 게시글 데이터 가져오기
+      Post newPost = responseDTO.data as Post; // dynamic(Post) -> 다운캐스팅
       // 2. 기존 상태에 데이터 추가 [전개연산자]
       List<Post> newPosts = [newPost, ...state!.posts];
       // 3. 뷰모델(창고) 데이터 갱신이 완료 -> watch 구독자는 rebuild됨.
