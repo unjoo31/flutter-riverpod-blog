@@ -55,7 +55,18 @@ class SessoinUser {
     }
   }
 
-  Future<void> logout() async {}
+  // jwt는 로그아웃할 때 서버측으로 요청할 필요 없음
+  Future<void> logout() async {
+    this.jwt = null; // jwt 날리기
+    this.isLogin = false; // 로그인 상태 변경
+    this.user = null; // user 날리기
+
+    // io가 발생하기 때문에 await가 필요함
+    await secureStorage.delete(key: "jwt");
+
+    // context 들고와서 화면 접근하기
+    Navigator.pushNamed(mContext!, Move.postWritePage); // 화면 스택 쌓임
+  }
 }
 
 // 2. 창고 관리자
