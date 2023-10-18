@@ -21,6 +21,9 @@ class PostListPage extends ConsumerWidget {
       ),
       body: RefreshIndicator(
         key: refreshKey,
+        strokeWidth: 3.0,
+        backgroundColor: Colors.purple,
+        color: Colors.grey,
         onRefresh: () async {
           Logger().d("리플레시됨");
           // 리플래시 될 때 provider를 호출해서 추가되는 게시글 리빌드 되게 함
