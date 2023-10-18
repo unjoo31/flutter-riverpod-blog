@@ -36,14 +36,14 @@ class PostListViewModel extends StateNotifier<PostListModel?> {
         await PostRepository().fetchPost(sessionStore.jwt!, dto);
 
     if (responseDTO.code == 1) {
-      Post newPost = responseDTO.data as Post; // 1. dynamic(Post) -> 다운캐스팅
-      List<Post> newPosts = [
-        newPost,
-        ...state!.posts
-      ]; // 2. 기존 상태에 데이터 추가 [전개연산자]
-      state = PostListModel(
-          newPosts); // 3. 뷰모델(창고) 데이터 갱신이 완료 -> watch 구독자는 rebuild됨.
-      Navigator.pop(mContext!); // 4. 글쓰기 화면 pop
+      // 1. dynamic(Post) -> 다운캐스팅
+      Post newPost = responseDTO.data as Post;
+      // 2. 기존 상태에 데이터 추가 [전개연산자]
+      List<Post> newPosts = [newPost, ...state!.posts];
+      // 3. 뷰모델(창고) 데이터 갱신이 완료 -> watch 구독자는 rebuild됨.
+      state = PostListModel(newPosts);
+      // 4. 글쓰기 화면 pop
+      Navigator.pop(mContext!);
     } else {
       ScaffoldMessenger.of(mContext!).showSnackBar(
           SnackBar(content: Text("게시물 작성 실패 : ${responseDTO.msg}")));
