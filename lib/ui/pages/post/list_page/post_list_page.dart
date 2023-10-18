@@ -17,16 +17,12 @@ class PostListPage extends ConsumerWidget {
       key: scaffoldKey,
       drawer: CustomNavigation(scaffoldKey),
       appBar: AppBar(
-        title: const Text("Blog"),
+        title: Text("Blog"),
       ),
       body: RefreshIndicator(
         key: refreshKey,
-        strokeWidth: 3.0,
-        backgroundColor: Colors.purple,
-        color: Colors.grey,
         onRefresh: () async {
-          Logger().d("리플레시됨");
-          // 리플래시 될 때 provider를 호출해서 추가되는 게시글 리빌드 되게 함
+          Logger().d("리플래시됨");
           ref.read(postListProvider.notifier).notifyInit();
         },
         child: PostListBody(),

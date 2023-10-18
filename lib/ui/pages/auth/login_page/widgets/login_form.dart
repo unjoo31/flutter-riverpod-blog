@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog/_core/constants/move.dart';
 import 'package:flutter_blog/_core/constants/size.dart';
 import 'package:flutter_blog/_core/utils/validator_util.dart';
 import 'package:flutter_blog/data/dto/user_request.dart';
-import 'package:flutter_blog/data/provider/session_provider.dart';
+import 'package:flutter_blog/data/store/session_store.dart';
 import 'package:flutter_blog/ui/widgets/custom_auth_text_form_field.dart';
 import 'package:flutter_blog/ui/widgets/custom_elavated_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

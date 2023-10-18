@@ -25,11 +25,15 @@ class User {
       };
 
   // 2. Map 형태로 받아서 Dart 객체로 변환합니다.
-  // 이니셜라이즈 키워드를 쓰게되면 객체가 만들어지기전에 생성자가 초기화 된다.
   User.fromJson(Map<String, dynamic> json)
       : id = json["id"],
         username = json["username"],
         email = json["email"],
         created = DateFormat("yyyy-mm-dd").parse(json["created"]), // 3
         updated = DateFormat("yyyy-mm-dd").parse(json["updated"]);
+
+  @override
+  String toString() {
+    return 'User{id: $id, username: $username, email: $email, created: $created, updated: $updated}';
+  }
 }

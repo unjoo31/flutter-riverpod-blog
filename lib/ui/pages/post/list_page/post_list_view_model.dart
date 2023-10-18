@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blog/data/dto/post_request.dart';
 import 'package:flutter_blog/data/dto/response_dto.dart';
 import 'package:flutter_blog/data/model/post.dart';
-import 'package:flutter_blog/data/provider/session_provider.dart';
 import 'package:flutter_blog/data/repository/post_repository.dart';
+import 'package:flutter_blog/data/store/session_store.dart';
 import 'package:flutter_blog/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,7 +22,7 @@ class PostListViewModel extends StateNotifier<PostListModel?> {
 
   Future<void> notifyInit() async {
     // jwt 가져오기
-    SessoinUser sessionStore = ref.read(sessionProvider);
+    SessionStore sessionStore = ref.read(sessionProvider);
 
     ResponseDTO responseDTO =
         await PostRepository().fetchPostList(sessionStore.jwt!);
@@ -30,7 +30,7 @@ class PostListViewModel extends StateNotifier<PostListModel?> {
   }
 
   Future<void> notifyAdd(PostSaveReqDTO dto) async {
-    SessoinUser sessionStore = ref.read(sessionProvider);
+    SessionStore sessionStore = ref.read(sessionProvider);
 
     ResponseDTO responseDTO =
         await PostRepository().fetchPost(sessionStore.jwt!, dto);

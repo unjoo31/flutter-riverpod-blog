@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blog/_core/constants/move.dart';
+import 'package:flutter_blog/_core/constants/size.dart';
 import 'package:flutter_blog/_core/constants/theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
