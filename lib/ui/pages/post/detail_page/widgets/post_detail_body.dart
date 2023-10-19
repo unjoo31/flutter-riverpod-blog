@@ -7,7 +7,6 @@ import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_conte
 import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_profile.dart';
 import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_title.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 
 class PostDetailBody extends ConsumerWidget {
   const PostDetailBody({Key? key}) : super(key: key);
@@ -21,21 +20,27 @@ class PostDetailBody extends ConsumerWidget {
     // ref.watch(postDetailProvider); // 창고에 접근
 
     PostDetailModel? model = ref.watch(postDetailProvider);
-    Post post = model!.post;
-    Logger().d("title : ${model.post.id}");
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ListView(
-        children: [
-          PostDetailTitle("${post.title}"),
-          const SizedBox(height: largeGap),
-          PostDetailProfile(),
-          PostDetailButtons(), // 버튼의 경우 게시글 소유자 확인이 필요하기 때문에 session도 들고 있어야함
-          const Divider(),
-          const SizedBox(height: largeGap),
-          PostDetailContent("${post.content}"),
-        ],
-      ),
-    );
+    if (model == null) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      Post post = model.post;
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            // PostDetailTitle("${post.title}"),
+            PostDetailTitle("${post.title}"),
+            const SizedBox(height: largeGap),
+            PostDetailProfile(),
+            PostDetailButtons(),
+            const Divider(),
+            const SizedBox(height: largeGap),
+            PostDetailContent("${post.content}"),
+          ],
+        ),
+      );
+    }
+    // PostDetailModel? pdm2 = ref.watch(postDetailProvider); // 상태에 접근
+    // ref.read(postDetailProvider.notifier);  // 창고에 접근
   }
 }
