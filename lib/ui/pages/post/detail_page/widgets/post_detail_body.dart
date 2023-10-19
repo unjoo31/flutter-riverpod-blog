@@ -7,6 +7,7 @@ import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_conte
 import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_profile.dart';
 import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_title.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
 class PostDetailBody extends ConsumerWidget {
   const PostDetailBody({Key? key}) : super(key: key);
@@ -15,13 +16,13 @@ class PostDetailBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 창고에 접근
     // TODO 3 : read, watch 여부 체크
-    PostDetailModel? pdm = ref.read(postDetailProvider); // 상태에 접근
-    PostDetailModel? pdm2 = ref.watch(postDetailProvider); // 상태에 접근
-    ref.watch(postDetailProvider); // 창고에 접근
+    // PostDetailModel? pdm = ref.read(postDetailProvider); // 상태에 접근
+    // PostDetailModel? pdm2 = ref.watch(postDetailProvider); // 상태에 접근
+    // ref.watch(postDetailProvider); // 창고에 접근
 
-    PostDetailModel? model = ref.read(postDetailProvider);
+    PostDetailModel? model = ref.watch(postDetailProvider);
     Post post = model!.post;
-
+    Logger().d("title : ${model.post.id}");
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView(

@@ -33,7 +33,7 @@ class PostListViewModel extends StateNotifier<PostListModel?> {
     SessionStore sessionStore = ref.read(sessionProvider);
 
     ResponseDTO responseDTO =
-        await PostRepository().fetchPost(sessionStore.jwt!, dto);
+        await PostRepository().savePost(sessionStore.jwt!, dto);
 
     if (responseDTO.code == 1) {
       // 1. 작성된 게시글 데이터 가져오기

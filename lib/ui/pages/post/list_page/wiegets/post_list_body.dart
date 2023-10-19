@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blog/data/model/post.dart';
+import 'package:flutter_blog/data/store/param_store.dart';
 import 'package:flutter_blog/ui/pages/post/detail_page/post_detail_page.dart';
-import 'package:flutter_blog/ui/pages/post/detail_page/post_detail_view_model.dart';
 import 'package:flutter_blog/ui/pages/post/list_page/post_list_view_model.dart';
 import 'package:flutter_blog/ui/pages/post/list_page/wiegets/post_list_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
 class PostListBody extends ConsumerWidget {
   const PostListBody({Key? key}) : super(key: key);
@@ -23,9 +24,11 @@ class PostListBody extends ConsumerWidget {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            // Detail 창고에 데이터 저장
-            // 사용자의 화면변동사항이 있기 때문에 바로 init이 가능하다 (postDetailProvider 창고에 데이터를 저장함)
-            ref.read(postDetailProvider.notifier).init(posts[index]);
+            // 1. postId를 paramStore에 저장
+            ParamStore paramStore = ref.read(paramProvider);
+            paramStore.postDetailId = posts[index].id;
+            Logger().d("title : ${paramStore.postDetailId}");
+            // 2. 화면 이동
             Navigator.push(
               // 게시글 상세보기의 경우 id가 필요하기 때문에 라우터 설계가 되지 않기 때문에 화면 이동시에 .push를 사용해서 넘어가야함
               context,
