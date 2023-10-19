@@ -23,7 +23,13 @@ class PostListBody extends ConsumerWidget {
         return InkWell(
           onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (_) => PostDetailPage()));
+              // 게시글 상세보기의 경우 id가 필요하기 때문에 라우터 설계가 되지 않기 때문에 화면 이동시에 .push를 사용해서 넘어가야함
+              context,
+              MaterialPageRoute(
+                builder: (_) => PostDetailPage(
+                    posts[index]), //posts가 컬렉션으로 되어 있어서 그대로 넘기면 사용가능
+              ),
+            );
           },
           child: PostListItem(posts[index]),
         );

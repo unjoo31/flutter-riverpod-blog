@@ -4,23 +4,27 @@ import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_butto
 import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_content.dart';
 import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_profile.dart';
 import 'package:flutter_blog/ui/pages/post/detail_page/widgets/post_detail_title.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PostDetailBody extends StatelessWidget {
-  const PostDetailBody({Key? key}) : super(key: key);
+import '../../../../../data/model/post.dart';
+
+class PostDetailBody extends ConsumerWidget {
+  final Post post;
+  const PostDetailBody(this.post, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView(
         children: [
-          PostDetailTitle("제목"),
+          PostDetailTitle(post.title),
           const SizedBox(height: largeGap),
           PostDetailProfile(),
           PostDetailButtons(),
           const Divider(),
           const SizedBox(height: largeGap),
-          PostDetailContent("내용"),
+          PostDetailContent(post.content),
         ],
       ),
     );
