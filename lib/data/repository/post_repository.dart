@@ -15,7 +15,8 @@ class PostRepository {
 
       // 2. ResponseDTO 파싱
       ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
-
+      Logger().d("fetchPostList 실행됨 : ${response.data.toString()}");
+      Logger().d("fetchPostList : ${responseDTO.data}");
       // 3. ResponseDTO의 data 파싱
       List<dynamic> mapList = responseDTO.data as List<dynamic>;
       List<Post> postList = mapList.map((e) => Post.fromJson(e)).toList();
