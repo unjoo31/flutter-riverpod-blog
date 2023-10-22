@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blog/data/model/post.dart';
-import 'package:flutter_blog/ui/pages/post/list_page/post_list_view_model.dart';
 import 'package:flutter_blog/ui/pages/post/update_page/post_update_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../list_page/post_list_view_model.dart';
 
 class PostDetailButtons extends ConsumerWidget {
   final Post post;
@@ -22,8 +23,8 @@ class PostDetailButtons extends ConsumerWidget {
         ),
         IconButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => PostUpdatePage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => PostUpdatePage(post)));
           },
           icon: const Icon(CupertinoIcons.pen),
         ),

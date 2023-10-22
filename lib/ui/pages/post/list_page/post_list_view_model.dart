@@ -65,6 +65,12 @@ class PostListViewModel extends StateNotifier<PostListModel?> {
       Navigator.pop(mContext!);
     }
   }
+
+  Future<void> notifyUpdate(Post post) async {
+    List<Post> posts = state!.posts;
+    List<Post> newPosts = posts.map((e) => e.id == post.id ? post : e).toList();
+    state = PostListModel(newPosts);
+  }
 }
 
 // 3. 창고 관리자 (View 빌드되기 직전에 생성됨)

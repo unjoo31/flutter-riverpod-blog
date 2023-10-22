@@ -86,7 +86,30 @@ class PostRepository {
       return responseDTO;
     } catch (e) {
       Logger().d("통신 실패");
-      return ResponseDTO(-1, "게시글 한건 불러오기 실패", null);
+      return ResponseDTO(-1, "게시글 삭제 실패", null);
+    }
+  }
+
+  Future<ResponseDTO> updatePost(
+      String jwt, int id, PostUpdateReqDTO reqDTO) async {
+    PostUpdateReqDTO requestDTO =
+        PostUpdateReqDTO(title: reqDTO.title, content: reqDTO.content);
+    try {
+      // 통신
+      Response response = await dio.put(
+        "/post/$id",
+        options: Options(headers: {"Authorization": "$jwt"}),
+        data: requestDTO.toJson(),
+      );
+
+      // 응답 받은 데이터 파싱
+      ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+      responseDTO.data = Post.fromJson(responseDTO.data);
+      Logger().d(responseDTO.code);
+      return responseDTO;
+    } catch (e) {
+      Logger().d("통신 실패");
+      return ResponseDTO(-1, "게시글 수정 실패", null);
     }
   }
 }
