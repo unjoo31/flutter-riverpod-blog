@@ -49,6 +49,22 @@ class PostListViewModel extends StateNotifier<PostListModel?> {
           SnackBar(content: Text("게시물 작성 실패 : ${responseDTO.msg}")));
     }
   }
+
+  Future<void> notifyRemove(int id) async {
+    SessionStore sessionStore = ref.read(sessionProvider);
+    ResponseDTO responseDTO =
+        await PostRepository().deletePost(sessionStore.jwt!, id);
+
+    if (responseDTO.code == 1) {
+      ScaffoldMessenger.of(mContext!).showSnackBar(
+          SnackBar(content: Text("게시물 삭제 실패 : ${responseDTO.msg}")));
+    } else {
+      List<Post> posts = state!.posts;
+      List<Post> newPosts = posts.where((e) => e.id != id).toList();
+      state = PostListModel(newPosts);
+      Navigator.pop(mContext!);
+    }
+  }
 }
 
 // 3. 창고 관리자 (View 빌드되기 직전에 생성됨)

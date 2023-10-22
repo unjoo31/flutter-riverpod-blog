@@ -32,7 +32,7 @@ class PostDetailBody extends ConsumerWidget {
             PostDetailTitle("${post.title}"),
             const SizedBox(height: largeGap),
             PostDetailProfile(),
-            PostDetailButtons(),
+            PostDetailButtons(post),
             const Divider(),
             const SizedBox(height: largeGap),
             PostDetailContent("${post.content}"),

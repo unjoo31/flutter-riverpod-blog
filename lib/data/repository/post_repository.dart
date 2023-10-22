@@ -72,4 +72,21 @@ class PostRepository {
       return ResponseDTO(-1, "게시글 한건 불러오기 실패", null);
     }
   }
+
+  Future<ResponseDTO> deletePost(String jwt, int id) async {
+    try {
+      // 통신
+      Response response = await dio.delete("/post/$id",
+          options: Options(headers: {"Authorization": "$jwt"}));
+
+      // 응답 받은 데이터 파싱
+      ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+      responseDTO.data = Post.fromJson(responseDTO.data);
+      Logger().d(responseDTO.code);
+      return responseDTO;
+    } catch (e) {
+      Logger().d("통신 실패");
+      return ResponseDTO(-1, "게시글 한건 불러오기 실패", null);
+    }
+  }
 }
